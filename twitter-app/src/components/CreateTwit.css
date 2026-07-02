@@ -1,0 +1,49 @@
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: #192734;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+textarea {
+  background: transparent;
+  border: 1px solid #38444d;
+  border-radius: 8px;
+  color: #fff;
+  padding: 10px;
+  resize: none;
+  font-size: 16px;
+}
+
+textarea:focus {
+  outline: none;
+  border-color: #1da1f2; /* Twitter Blue */
+}
+
+button {
+  background-color: #1da1f2;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  align-self: flex-end;
+}
+
+button:disabled {
+  background-color: #193547;
+  color: #8899a6;
+  cursor: not-allowed;
+}
+.error-message {
+  background-color: #fde8e8; /* Soft pink/red background */
+  color: #9b1c1c;            /* Dark red text */
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  display: inline-block;     /* Keeps it hugging the text size */
+}

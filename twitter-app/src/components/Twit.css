@@ -1,0 +1,21 @@
+.twit {
+  background: #192734;
+  border: 1px solid #38444d;
+  border-radius: 10px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+/* Inside your Twit component, wrap the username in a className="username" */
+.username {
+  font-weight: bold;
+  color: #8899a6;
+  font-size: 14px;
+}
+
+.twit-text {
+  font-size: 16px;
+  word-break: break-word;
+}
