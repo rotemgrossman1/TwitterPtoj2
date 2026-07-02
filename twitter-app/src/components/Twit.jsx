@@ -4,8 +4,8 @@ export default function Twit( {twit, index} ){
     return(
         <>
             <div className="twit">
-                {twit.content}
-                {twit.userName}
+                <div className="username">{twit.userName}</div>
+                <div className="twit-text">{twit.content}</div>      
             </div>
         </>
     )
