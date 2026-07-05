@@ -1,7 +1,9 @@
 
 import {useState} from 'react'
 import './ProfilePage.css'
-export default function ProfilePage( {username, setUsername} ){
+import {useTweet} from '../context/TweetContext'
+export default function ProfilePage(){
+    const  {username, setUsername} = useTweet()
     const [localUsername, setLocalUsername] = useState("");
     const handleChange = (event) =>{
         setLocalUsername(event.target.value)

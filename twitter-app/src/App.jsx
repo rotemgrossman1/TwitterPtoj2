@@ -6,23 +6,24 @@ import ProfilePage from './pages/ProfilePage'
 import { Navbar } from './components/NavBar'
 import '@mantine/core/styles.css'
 import { MantineProvider } from '@mantine/core';
+import { TweetProvider } from './context/TweetContext'
 function App() {
-  const [ username, setUsername] = useState("default")
   return (
     <>
+    <TweetProvider>
       <MantineProvider>
         <Router>
           <Navbar />
           <Routes>
-            <Route path="/" element={<HomePage username={username}/>} />
+            <Route path="/" element={<HomePage />} />
             <Route path="/profile" element={
               <ProfilePage 
-                username={username}
-                setUsername={setUsername}
+             
               />} />
           </Routes>
         </Router>
       </MantineProvider>
+    </TweetProvider>
     </>
     )
 }
