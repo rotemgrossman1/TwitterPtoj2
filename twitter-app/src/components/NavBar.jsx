@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Burger, Container, Group } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import classes from "./Navbar.module.css";
-import { NavLink } from "react-router";
+import { NavLink } from "react-router-dom";
 
 
 export function Navbar() {
