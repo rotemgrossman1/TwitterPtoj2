@@ -3,7 +3,7 @@ import TwitList from "../components/TwitList";
 import { useState , useEffect} from "react";
 import './HomePage.css'
 import dummyTweets from "./dummyTweets.json";
-function HomePage() {
+function HomePage({username}) {
     
     // const[twitsArr, setTwits] = useState(() => {
     //     const savedTwits = localStorage.getItem("myTweets")
@@ -17,7 +17,7 @@ function HomePage() {
         setTimeout(()=>{
             const newTwitObj = {
                 content: twitText,
-                userName: 'rotemgross',
+                userName: username,
                 date: new Date().getTime()
             }
             const updatedTwitsArr = [newTwitObj, ...twitsArr];
