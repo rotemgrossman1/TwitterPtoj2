@@ -1,16 +1,20 @@
 
 import {useState} from 'react'
 export default function ProfilePage( {username, setUsername} ){
-    const [localUsername, setLocalUsername] = useState(username);
+    const [localUsername, setLocalUsername] = useState("");
     const handleChange = (event) =>{
         setLocalUsername(event.target.value)
     }
     const handleSubmit = (event) => {
         event.preventDefault()//prevent the page from reloading
         setUsername(localUsername)
+        setLocalUsername("")
     }
     return(
         <>
+            <div className="profile-info">
+                <h2>Current User: {username || 'No username set'}</h2>
+            </div>
             <form onSubmit={handleSubmit}>
                 <textarea
                     id = "username"
