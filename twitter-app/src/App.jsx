@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import './App.css'
-import { HashRouter as Router, Routes, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import HomePage from './pages/HomePage'
 import ProfilePage from './pages/ProfilePage'
 import { Navbar } from './components/NavBar'
@@ -12,7 +12,7 @@ function App() {
     <>
     <TweetProvider>
       <MantineProvider>
-        <Router>
+        <Router basename="/TwitterPtoj2">
           <Navbar />
           <Routes>
             <Route path="/" element={<HomePage />} />
