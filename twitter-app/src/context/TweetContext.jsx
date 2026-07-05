@@ -43,7 +43,9 @@ export function TweetProvider({ children }) {
     // function to use when the api works
     useEffect(() => {
         async function fetchTweets(){
-            setLoading(true)
+            if(!twitsArr){
+                setLoading(true)
+            }
             try{
             const response = await fetch("https://lrazzxpwhdtmxcetgtng.supabase.co/rest/v1/Tweets?order=date.desc", {
                     method: "GET",
@@ -61,6 +63,12 @@ export function TweetProvider({ children }) {
             }
         }
         fetchTweets()
+        const IntervalId = setInterval(() =>{
+            fetchTweets()
+        }, 5000);
+        return()=>{
+            clearInterval(IntervalId)
+        }
     },[])
     return (
     <TweetContext.Provider value={{twitsArr, setTwits,loading, setLoading, error, setError, handleAddTwit, username, setUsername}}>
