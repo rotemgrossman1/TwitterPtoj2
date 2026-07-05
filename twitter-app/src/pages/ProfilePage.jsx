@@ -1,5 +1,6 @@
 
 import {useState} from 'react'
+import './ProfilePage.css'
 export default function ProfilePage( {username, setUsername} ){
     const [localUsername, setLocalUsername] = useState("");
     const handleChange = (event) =>{
