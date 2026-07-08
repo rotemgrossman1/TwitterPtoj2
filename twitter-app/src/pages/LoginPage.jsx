@@ -16,7 +16,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../auth/AuthProvider";
 import { useForm } from "@mantine/form";
-import { IconAlertCircle } from "@tabler/icons-react";
+//import { IconAlertCircle } from "@tabler/icons-react";
 
 export function LoginPage() {
   const form = useForm({

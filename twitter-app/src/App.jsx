@@ -7,6 +7,9 @@ import { Navbar } from './components/NavBar'
 import '@mantine/core/styles.css'
 import { MantineProvider } from '@mantine/core';
 import { TweetProvider } from './context/TweetContext'
+import AuthProvider from './auth/AuthProvider';
+import ProtectedRoute from './auth/ProtectedRoute';
+import { LoginPage } from './pages/LoginPage';
 function App() {
 //   const router = createBrowserRouter(
 //   [
@@ -21,11 +24,14 @@ const routerBasename = import.meta.env.MODE === 'production' ? '/TwitterPtoj2' :
     <TweetProvider>
       <MantineProvider>
         <Router basename={routerBasename}>
-          <Navbar />
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/profile" element={<ProfilePage />} />
-          </Routes>
+          <AuthProvider>
+            <Navbar />
+            <Routes>
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/" element={<ProtectedRoute><HomePage /></ProtectedRoute>} />
+              <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
+            </Routes>
+          </AuthProvider>
         </Router>
       </MantineProvider>
     </TweetProvider>

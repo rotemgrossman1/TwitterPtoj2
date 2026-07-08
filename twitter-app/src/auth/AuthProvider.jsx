@@ -38,7 +38,7 @@ export default function AuthProvider({ children }) {
     }
 
     setActiveUser(data.user);
-    navigate("/login");
+    navigate("/");
   }
 
   async function handleLogout() {
