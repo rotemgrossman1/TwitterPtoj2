@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext, useEffect } from "react";
+import React, { createContext, useState, useContext,useRef, useEffect } from "react";
 import { supabase } from "../supabaseClient";
 // 1. Create the Context
 const TweetContext = createContext();
@@ -37,9 +37,15 @@ export function TweetProvider({ children }) {
     }
 
     // function to use when the api works
-    useEffect(() => {
+useEffect(() => {
+        const isInitialLoad = { current: true };
+
         async function fetchTweets(){
-            try{
+            // Only toggle the visible UI loader state if it's the absolute first fetch
+            if (isInitialLoad.current) {
+                setLoading(true);
+            }
+            try {
                 const { data, error: supabaseError } = await supabase
                     .from('Tweets')
                     .select('*')
@@ -48,22 +54,26 @@ export function TweetProvider({ children }) {
                 if (supabaseError) throw supabaseError;
 
                 setTwits(data || []);
-            }catch (err) {
+            } catch (err) {
                 console.error("Error loading data from Supabase:", err);
             } finally {
-                if(twitsArr.length === 0){
+                if (isInitialLoad.current) {
                     setLoading(false);
+                    isInitialLoad.current = false; // Background loops bypass this completely
                 }
             }
         }
-        fetchTweets()
-        const IntervalId = setInterval(() =>{
-            fetchTweets()
+        
+        fetchTweets();
+        
+        const IntervalId = setInterval(() => {
+            fetchTweets();
         }, 5000);
-        return()=>{
-            clearInterval(IntervalId)
-        }
-    },[])
+        
+        return () => {
+            clearInterval(IntervalId);
+        };
+    }, []);
     return (
     <TweetContext.Provider value={{twitsArr, setTwits,loading, setLoading, error, setError, handleAddTwit, username, setUsername}}>
         {children}
