@@ -15,11 +15,12 @@ function App() {
 //   ],
 //   { basename: "/TwitterPtoj2" } // Matches repo name to avoid routing 404s
 // );
+const routerBasename = import.meta.env.MODE === 'production' ? '/TwitterPtoj2' : '/';
   return (
     <>
     <TweetProvider>
       <MantineProvider>
-        <Router basename="/TwitterPtoj2">
+        <Router basename={routerBasename}>
           <Navbar />
           <Routes>
             <Route path="/" element={<HomePage />} />
