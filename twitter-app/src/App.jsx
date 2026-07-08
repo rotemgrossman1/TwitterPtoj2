@@ -8,6 +8,13 @@ import '@mantine/core/styles.css'
 import { MantineProvider } from '@mantine/core';
 import { TweetProvider } from './context/TweetContext'
 function App() {
+//   const router = createBrowserRouter(
+//   [
+//     { path: "/", element: <HomePage /> },
+//     { path: "/profile", element: <Profile /> }
+//   ],
+//   { basename: "/TwitterPtoj2" } // Matches repo name to avoid routing 404s
+// );
   return (
     <>
     <TweetProvider>
@@ -16,10 +23,7 @@ function App() {
           <Navbar />
           <Routes>
             <Route path="/" element={<HomePage />} />
-            <Route path="/profile" element={
-              <ProfilePage 
-             
-              />} />
+            <Route path="/profile" element={<ProfilePage />} />
           </Routes>
         </Router>
       </MantineProvider>

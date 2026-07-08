@@ -1,5 +1,5 @@
 import React, { createContext, useState, useContext, useEffect } from "react";
-
+import { supabase } from "../supabaseClient";
 // 1. Create the Context
 const TweetContext = createContext();
 
@@ -14,52 +14,46 @@ export function TweetProvider({ children }) {
         setError(null)
         const newTwitObj = {
             content: twitText,
-            userName: username,
+            user_name: username, 
             date: new Date().toISOString()
-        }
-
+        };
         try{
-           const response = await fetch("https://lrazzxpwhdtmxcetgtng.supabase.co/rest/v1/Tweets?order=date.desc", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "apikey": "sb_publishable_PYoOQaHg4j7ps7Vo5Br41Q_QfmiyPSB",
-                "Authorization": "Bearer sb_publishable_PYoOQaHg4j7ps7Vo5Br41Q_QfmiyPSB"
-            },
-            body: JSON.stringify(newTwitObj)
-        });
-            if(!response.ok){
-                throw new Error("failed to post tweet to server")
+            const { data, error: supabaseError } = await supabase
+                .from('Tweets')
+                .insert([newTwitObj])
+                .select();
+
+            if (supabaseError) throw supabaseError;
+
+            if (data && data.length > 0) {
+                setTwits((prevTwits) => [data[0], ...prevTwits]);
             }
-            setTwits((prevTwits) => [newTwitObj, ...prevTwits])
-        }catch(err){
-            setError("Coludnt submit tweet please try again")
-            console.error(err)
-        }finally{
-            setLoading(false)
+        }catch (err) {
+            console.error(err);
+            setError("Failed to post tweet. Please try again.");
+        } finally {
+            setLoading(false);
         }
     }
 
     // function to use when the api works
     useEffect(() => {
         async function fetchTweets(){
-            if(!twitsArr){
-                setLoading(true)
-            }
             try{
-            const response = await fetch("https://lrazzxpwhdtmxcetgtng.supabase.co/rest/v1/Tweets?order=date.desc", {
-                    method: "GET",
-                    headers: {
-                        "apikey": "sb_publishable_PYoOQaHg4j7ps7Vo5Br41Q_QfmiyPSB",
-                        "Authorization": "Bearer sb_publishable_PYoOQaHg4j7ps7Vo5Br41Q_QfmiyPSB"
-                    }
-                });
-                const data = await response.json()
-                setTwits(data)
-                setLoading(false)
-            }catch{
-                setLoading(false)
-                console.error("couldnt load the data from the api")
+                const { data, error: supabaseError } = await supabase
+                    .from('Tweets')
+                    .select('*')
+                    .order('twitId', { ascending: false });
+
+                if (supabaseError) throw supabaseError;
+
+                setTwits(data || []);
+            }catch (err) {
+                console.error("Error loading data from Supabase:", err);
+            } finally {
+                if(twitsArr.length === 0){
+                    setLoading(false);
+                }
             }
         }
         fetchTweets()

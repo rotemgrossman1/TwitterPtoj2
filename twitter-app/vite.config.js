@@ -8,5 +8,5 @@ export default defineConfig({
     react(),
     babel({ presets: [reactCompilerPreset()] })
   ],
-  base: "/TwitterPtoj2/"
+  base: process.env.NODE_ENV === 'production' ? '/TwitterPtoj2/' : '/',
 })
